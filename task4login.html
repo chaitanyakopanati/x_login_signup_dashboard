@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="task4.css"></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+  
+  <div id="divtag">
+  <form id="logForm">
+    <div style="display: flex;justify-content: center;"><h2>Login Form</h2></div>
+    <input type="text" name="username" id="username" placeholder="Username / Email" ><br><br>
+    <div style="display: flex;justify-content: space-between;"> <input type="password" name="password" id="password" placeholder="Enter Password">
+      <span id="togglePassword" class="toggle-password" style="fa-eye::before {
+        margin-right: -23px;
+    }" onclick="togglePasswordVisibility()">
+        <i class="fa fa-eye" id="eyeIcon"></i>
+      </span></div><small>Example:P@ssw2rd</small>
+          <p id="password_error" class="error"></p>
+          <p id="password_success"  class="success" ></p><br>
+    <button type="submit">Login</button><br>
+    <small>Create Account or sigup here <button type="button" onclick=' window.location.href = "task4signup.html"'>Signup</button></small>
+  </form>
+  </div>
+  <script>
+    function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("password");
+  var eyeIcon = document.getElementById("eyeIcon");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+  }
+}
+    document.getElementById("logForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      let username = document.getElementById('username').value.trim();
+      let password = document.getElementById('password').value.trim();
+      let storedData = JSON.parse(localStorage.getItem('formData')) || [];
+      // let user = storedData.find(data => (data.Username === username||data.Email === username) && data.Password === password);
+      // console.log(user,'user')
+     
+     let user = null;
+
+      for (let i = 0; i < storedData.length; i++) {
+        if ((storedData[i].Username === username || storedData[i].Email === username)
+         && storedData[i].Password === password) {
+          user = storedData[i];
+            //console.log(storedData[i],'storedData1')
+          break;
+        }
+      }
+ // console.log(user,'user')
+      if (user) {
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        alert(" successfully LoggedIn!");
+       setTimeout(() => {
+        window.location.href = "task4dashboard.html";
+       }, 100); 
+      } else {
+        alert("Invalid username or password");
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body style="background-color: cadetblue;margin: 10px;border: 20px; width: 100%;height: 100%;">
+    <div>
+   <div style="display: flex;justify-content: end;margin: 20px;"><button type="button"  onclick="logOut()">LogOut</button></div> 
+    <h1>Welcome to dashboard:</h1>
+    <p id="username"  style="display: flex;justify-content: center;margin: 20px;"></p>
+    <p  id="email" style="display: flex;justify-content: center;margin: 20px;"></p>
+</div>
+    <script>
+        function logOut(){
+            localStorage.removeItem('loggedInUser');
+            window.location.href = "task4login.html"; 
+        }
+        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        //console.log(loggedInUser,'loggedInUser')
+        if (loggedInUser) {
+            document.getElementById('username').innerText = "Username: " + loggedInUser.Username;
+            document.getElementById('email').innerText = "Email: " + loggedInUser.Email;
+            document.getElementById('username').style.color='white';
+            document.getElementById('email').style.color='white';
+        } else {
+            window.location.href = "task4login.html"; 
+        }
+    </script>
+</body>
+</html>
+
+
